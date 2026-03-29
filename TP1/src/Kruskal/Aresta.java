@@ -1,5 +1,4 @@
 package Kruskal;
-import java.util.Comparator;
 
 public class Aresta implements Comparable<Aresta> {
     public int origem, destino, peso;

@@ -1,12 +1,14 @@
 package Kruskal;
+
+import estruturas.NaiveDSU;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Kruskal {
-    public static List<Aresta> executarKruskal(int numVertices, List<Aresta> arestas) {
+    public static List<Aresta> executarKruskalNaive(int numVertices, List<Aresta> arestas) {
         List<Aresta> mst = new ArrayList<>();
-        DSU dsu = new DSU(numVertices);
+        NaiveDSU dsu = new NaiveDSU(numVertices);
 
         Collections.sort(arestas);
 
