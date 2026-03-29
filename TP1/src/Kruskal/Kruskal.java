@@ -14,8 +14,6 @@ public class Kruskal {
     public static List<Aresta> executarKruskalDeVarianteParaGrafo(VarianteBase variante, Grafo grafo) {
         List<Aresta> mst = new ArrayList<>();
 
-        Collections.sort(grafo.getArestas());
-
         for (Aresta aresta : grafo.getArestas()) {
             int rootOrigem = variante.find(aresta.origem);
             int rootDestino = variante.find(aresta.destino);
