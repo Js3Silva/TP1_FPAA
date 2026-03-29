@@ -16,7 +16,7 @@ public class Kruskal {
 
         VarianteBase variante;
         try {
-            variante = (VarianteBase) clazz.getDeclaredConstructors()[0].newInstance(grafo.getNumVertices());
+            variante = clazz.getDeclaredConstructor(int.class).newInstance(grafo.getNumVertices());
         } catch (Exception e) {
             System.out.println("Incapaz de instanciar variante de DSU do tipo:" + clazz.getName());
             return mst;

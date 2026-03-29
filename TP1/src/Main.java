@@ -11,8 +11,6 @@ import static Kruskal.Kruskal.executarKruskalDeVarianteParaGrafo;
 public class Main {
     public static void main(String[] args) {
         Grafo grafoBase = new Grafo(4);
-        int V = 4;
-        List<Aresta> arestas = new ArrayList<>();
         grafoBase.addAresta(0, 1, 10);
         grafoBase.addAresta(0, 2, 6);
         grafoBase.addAresta(0, 3, 5);
