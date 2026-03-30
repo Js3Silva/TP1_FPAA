@@ -1,17 +1,13 @@
 package Kruskal;
 
-import Estruturas.NaiveDSU;
 import Estruturas.VarianteBase;
 
-import java.security.KeyPair;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Kruskal {
 
-
-    public static List<Aresta>  executarKruskalDeVarianteParaGrafo(Class<? extends VarianteBase> clazz, Grafo grafo) {
+    public static List<Aresta> executarKruskalDeVarianteParaGrafo(Class<? extends VarianteBase> clazz, Grafo grafo) {
         List<Aresta> mst = new ArrayList<>();
 
         VarianteBase variante;
@@ -22,7 +18,9 @@ public class Kruskal {
             return mst;
         }
 
+        int mstAlvo = grafo.getNumVertices() - 1;
         for (Aresta aresta : grafo.getArestas()) {
+            if (mst.size() == mstAlvo) break;
             if (variante.find(aresta.origem) != variante.find(aresta.destino)) {
                 mst.add(aresta);
                 variante.union(aresta.origem, aresta.destino);

@@ -1,15 +1,15 @@
 package Geradores;
 
-import java.util.Random;
-
 import Kruskal.Grafo;
+
+import java.util.Random;
 
 public class GeradorGrafo {
 
     public static Grafo gerarAleatorio(int numVertices, int numArestas) {
         Random rand = new Random();
 
-        Grafo grafo = new Grafo(numVertices);
+        Grafo grafo = new Grafo(numVertices, numArestas);
 
         for (int i = 0; i < numArestas; i++) {
             int u = rand.nextInt(numVertices);
@@ -28,7 +28,8 @@ public class GeradorGrafo {
     }
 
     public static Grafo gerarPiorCaso(int numVertices) {
-        Grafo grafo = new Grafo(numVertices);
+        int capacidade = numVertices - 1 + numVertices;
+        Grafo grafo = new Grafo(numVertices, capacidade);
 
         for (int i = 0; i < numVertices - 1; i++) {
             grafo.addAresta(i, i + 1, i + 1);
