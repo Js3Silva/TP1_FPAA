@@ -28,17 +28,17 @@ public class GeradorGrafo {
     }
 
     public static Grafo gerarPiorCaso(int numVertices) {
-        int capacidade = numVertices - 1 + numVertices;
-        Grafo grafo = new Grafo(numVertices, capacidade);
+        int numArestas = numVertices * (numVertices - 1) / 2;
+        Grafo grafo = new Grafo(numVertices, numArestas);
 
-        for (int i = 0; i < numVertices - 1; i++) {
-            grafo.addAresta(i, i + 1, i + 1);
-        }
-        int peso = numVertices + 1;
+        int peso = 1;
 
-        for (int i = 0; i < numVertices / 2; i++) {
-            grafo.addAresta(0, numVertices - 1 - i, peso++);
-            grafo.addAresta(i, numVertices - 1, peso++);
+        for (int k = 1; k < numVertices; k++) {
+            grafo.addAresta(k - 1, k, peso++);
+
+            for (int i = 0; i < k - 1; i++) {
+                grafo.addAresta(i, k, peso++);
+            }
         }
 
         return grafo;

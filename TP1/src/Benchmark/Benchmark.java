@@ -17,7 +17,7 @@ import static Kruskal.Kruskal.executarKruskalDeVarianteParaGrafo;
 
 public class Benchmark {
 
-    private static final int[] N_ARESTAS = {10_000, 100_000, 500_000, 1_000_000};
+    private static final int[] N_VERTICES = {100, 500, 1_000, 1_500, 2_000};
 
     @SuppressWarnings("unchecked")
     private static final Class<? extends VarianteBase>[] VARIANTES = new Class[]{
@@ -30,22 +30,21 @@ public class Benchmark {
         System.out.println("Iniciando benchmark...\n");
 
         try (PrintWriter writer = new PrintWriter(new FileWriter("resultados.csv"))) {
-            writer.println("n_arestas,tipo_grafo,variante,tempo_ns,tempo_ms");
+            writer.println("n_vertices,tipo_grafo,variante,tempo_ns,tempo_ms,operacoes");
 
-            for (int n : N_ARESTAS) {
-                int numVerticesAleatorio = (int) Math.ceil(Math.sqrt(2.0 * n)) + 1;
-                int numVerticesPiorCaso  = Math.max(n / 2, 2);
+            for (int v : N_VERTICES) {
+                int numArestas = v * (v - 1) / 2;
 
-                Grafo grafoAleatorio = GeradorGrafo.gerarAleatorio(numVerticesAleatorio, n);
-                Grafo grafoPiorCaso  = GeradorGrafo.gerarPiorCaso(numVerticesPiorCaso);
+                Grafo grafoAleatorio = GeradorGrafo.gerarAleatorio(v, numArestas);
+                Grafo grafoPiorCaso  = GeradorGrafo.gerarPiorCaso(v);
 
                 Collections.sort(grafoAleatorio.getArestas());
                 Collections.sort(grafoPiorCaso.getArestas());
 
-                System.out.printf("=== n = %,d arestas ===%n", n);
+                System.out.printf("=== n = %,d vertices ===%n", v);
 
-                medir(writer, n, "aleatorio", grafoAleatorio);
-                medir(writer, n, "pior_caso", grafoPiorCaso);
+                medir(writer, v, "aleatorio", grafoAleatorio);
+                medir(writer, v, "pior_caso", grafoPiorCaso);
             }
 
             System.out.println("\nResultados salvos em: resultados.csv");
@@ -66,7 +65,8 @@ public class Benchmark {
 
         for (Class<? extends VarianteBase> variante : VARIANTES) {
             long tempoNs = medirVariante(variante, grafo);
-            registrar(writer, n, tipoGrafo, variante, tempoNs);
+            long operacoes = contarOperacoes(variante, grafo);
+            registrar(writer, n, tipoGrafo, variante, tempoNs, operacoes);
         }
     }
 
@@ -76,12 +76,24 @@ public class Benchmark {
         return System.nanoTime() - inicio;
     }
 
+    private static long contarOperacoes(Class<? extends VarianteBase> variante, Grafo grafo) {
+        VarianteBase instancia = executarKruskalDeVarianteParaGrafo(variante, grafo);
+        return instancia != null ? instancia.getOperacoes() : 0;
+    }
+
     private static void registrar(PrintWriter writer, int n, String tipoGrafo,
-                                   Class<? extends VarianteBase> variante, long tempoNs) {
+                                   Class<? extends VarianteBase> variante, long tempoNs, long operacoes) {
+
         double tempoMs = tempoNs / 1_000_000.0;
-        System.out.printf("    %-15s %,12d ns  (%8.3f ms)%n",
-                variante.getSimpleName(), tempoNs, tempoMs);
-        writer.printf(Locale.US, "%d,%s,%s,%d,%.3f\n",
-                n, tipoGrafo, variante.getSimpleName(), tempoNs, tempoMs);
+
+        System.out.printf("    %-15s %,12d ns  (%8.3f ms)  ops: %,d%n",
+                variante.getSimpleName(), tempoNs, tempoMs, operacoes);
+
+        String tempoNsFmt = String.format(Locale.GERMANY, "%,d", tempoNs);
+        String tempoMsFmt = String.format(Locale.US, "%,.3f", tempoMs).replace(",", ".");
+        String operacoesFmt = String.format(Locale.GERMANY, "%,d", operacoes);
+
+        writer.printf("%d,%s,%s,%s,%s,%s\n",
+                n, tipoGrafo, variante.getSimpleName(), tempoNsFmt, tempoMsFmt, operacoesFmt);
     }
 }

@@ -15,6 +15,7 @@ public class UnionByRank extends VarianteBase {
 
     @Override
     public int find(int i) {
+        operacoes++;
         if (this.pai[i] == i) {
             return i;
         }
@@ -26,6 +27,7 @@ public class UnionByRank extends VarianteBase {
         int rootA = find(a);
         int rootB = find(b);
         if (rootA != rootB) {
+            operacoes++;
             if (this.rank[rootA] < this.rank[rootB]) {
                 this.pai[rootA] = rootB;
             } else if (this.rank[rootA] > this.rank[rootB]) {

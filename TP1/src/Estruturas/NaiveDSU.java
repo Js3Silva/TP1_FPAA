@@ -11,6 +11,7 @@ public class NaiveDSU extends VarianteBase {
 
     @Override
     public int find(int i) {
+        operacoes++;
         if (this.pai[i] == i) {
             return i;
         }
@@ -22,6 +23,7 @@ public class NaiveDSU extends VarianteBase {
         int rootA = find(a);
         int rootB = find(b);
         if (rootA != rootB) {
+            operacoes++;
             this.pai[rootA] = rootB;
         }
     }
