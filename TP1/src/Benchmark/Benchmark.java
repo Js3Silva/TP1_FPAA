@@ -33,7 +33,7 @@ public class Benchmark {
             writer.println("n_vertices,tipo_grafo,variante,tempo_ns,tempo_ms,operacoes");
 
             for (int v : N_VERTICES) {
-                int numArestas = v * (v - 1) / 2;
+                int numArestas = (int)Math.sqrt(v * (v - 1.0) / 2) * 10;
 
                 Grafo grafoAleatorio = GeradorGrafo.gerarAleatorio(v, numArestas);
                 Grafo grafoPiorCaso  = GeradorGrafo.gerarPiorCaso(v);
