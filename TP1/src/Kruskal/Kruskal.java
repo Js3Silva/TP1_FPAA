@@ -5,7 +5,15 @@ import Estruturas.VarianteBase;
 import java.util.ArrayList;
 import java.util.List;
 
-ch (Exception e) {
+public class Kruskal {
+    private static final Map<Class<?>, Constructor<? extends VarianteBase>> constructorCache = new HashMap<>();
+
+    public static VarianteBase executarKruskalDeVarianteParaGrafo(Class<? extends VarianteBase> clazz, Grafo grafo) {
+        VarianteBase variante;
+        var construtorClazz = getConstructor(clazz);
+        try {
+            variante = construtorClazz.newInstance(grafo.getNumVertices());
+        } catch (Exception e) {
             System.out.println("Incapaz de instanciar variante de DSU do tipo:" + clazz.getName());
             return null;
         }
