@@ -1,10 +1,10 @@
-package Estruturas;
+package dsu;
 
-public class UnionByRank extends VarianteBase {
+public class FullTarjan extends Dsu {
 
     int[] rank;
 
-    public UnionByRank(int n) {
+    public FullTarjan(int n) {
         super(n);
         this.rank = new int[n];
         for (int i = 0; i < n; i++) {
@@ -19,7 +19,8 @@ public class UnionByRank extends VarianteBase {
         if (this.pai[i] == i) {
             return i;
         }
-        return find(this.pai[i]);
+        operacoes++;
+        return this.pai[i] = find(this.pai[i]);
     }
 
     @Override

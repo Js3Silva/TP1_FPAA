@@ -1,10 +1,10 @@
-package Estruturas;
+package dsu;
 
-public abstract class VarianteBase {
+public abstract class Dsu {
     int[] pai;
     protected long operacoes;
 
-    VarianteBase(int n) {
+    Dsu(int n) {
         this.pai = new int[n];
         this.operacoes = 0;
     }

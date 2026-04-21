@@ -1,8 +1,8 @@
-package Estruturas;
+package dsu;
 
-public class NaiveDSU extends VarianteBase {
+public class Naive extends Dsu {
 
-    public NaiveDSU(int n) {
+    public Naive(int n) {
         super(n);
         for (int i = 0; i < n; i++) {
             this.pai[i] = i;

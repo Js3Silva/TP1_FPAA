@@ -1,11 +1,10 @@
-package Benchmark;
+package benchmark;
 
-import Estruturas.FullTarjan;
-import Estruturas.NaiveDSU;
-import Estruturas.UnionByRank;
-import Estruturas.VarianteBase;
-import Geradores.GeradorGrafo;
-import Kruskal.Grafo;
+import dsu.FullTarjan;
+import dsu.Naive;
+import dsu.UnionByRank;
+import dsu.Dsu;
+import kruskal.Grafo;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,15 +12,15 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Locale;
 
-import static Kruskal.Kruskal.executarKruskalDeVarianteParaGrafo;
+import static kruskal.Kruskal.executarKruskalDeVarianteParaGrafo;
 
 public class Benchmark {
 
     private static final int[] N_VERTICES = {100, 500, 1_000, 1_500, 2_000};
 
     @SuppressWarnings("unchecked")
-    private static final Class<? extends VarianteBase>[] VARIANTES = new Class[]{
-            NaiveDSU.class,
+    private static final Class<? extends Dsu>[] VARIANTES = new Class[]{
+            Naive.class,
             UnionByRank.class,
             FullTarjan.class
     };
@@ -58,31 +57,31 @@ public class Benchmark {
         System.out.printf("  [%s]%n", tipoGrafo);
 
         for (int w = 0; w < 3; w++) {
-            for (Class<? extends VarianteBase> variante : VARIANTES) {
+            for (Class<? extends Dsu> variante : VARIANTES) {
                 executarKruskalDeVarianteParaGrafo(variante, grafo);
             }
         }
 
-        for (Class<? extends VarianteBase> variante : VARIANTES) {
+        for (Class<? extends Dsu> variante : VARIANTES) {
             long tempoNs = medirVariante(variante, grafo);
             long operacoes = contarOperacoes(variante, grafo);
             registrar(writer, n, tipoGrafo, variante, tempoNs, operacoes);
         }
     }
 
-    private static long medirVariante(Class<? extends VarianteBase> variante, Grafo grafo) {
+    private static long medirVariante(Class<? extends Dsu> variante, Grafo grafo) {
         long inicio = System.nanoTime();
         executarKruskalDeVarianteParaGrafo(variante, grafo);
         return System.nanoTime() - inicio;
     }
 
-    private static long contarOperacoes(Class<? extends VarianteBase> variante, Grafo grafo) {
-        VarianteBase instancia = executarKruskalDeVarianteParaGrafo(variante, grafo);
+    private static long contarOperacoes(Class<? extends Dsu> variante, Grafo grafo) {
+        Dsu instancia = executarKruskalDeVarianteParaGrafo(variante, grafo);
         return instancia != null ? instancia.getOperacoes() : 0;
     }
 
     private static void registrar(PrintWriter writer, int n, String tipoGrafo,
-                                   Class<? extends VarianteBase> variante, long tempoNs, long operacoes) {
+                                  Class<? extends Dsu> variante, long tempoNs, long operacoes) {
 
         double tempoMs = tempoNs / 1_000_000.0;
 

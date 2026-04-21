@@ -1,6 +1,6 @@
-package Geradores;
+package benchmark;
 
-import Kruskal.Grafo;
+import kruskal.Grafo;
 
 import java.util.Random;
 

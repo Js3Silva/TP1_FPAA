@@ -1,4 +1,4 @@
-package Kruskal;
+package kruskal;
 
 import java.util.ArrayList;
 import java.util.List;

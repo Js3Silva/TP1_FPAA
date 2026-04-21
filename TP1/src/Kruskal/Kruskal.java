@@ -1,15 +1,15 @@
-package Kruskal;
+package kruskal;
 
-import Estruturas.VarianteBase;
-
-import java.util.ArrayList;
-import java.util.List;
+import dsu.Dsu;
+import java.util.Map;
+import java.util.HashMap;
+import java.lang.reflect.Constructor;
 
 public class Kruskal {
-    private static final Map<Class<?>, Constructor<? extends VarianteBase>> constructorCache = new HashMap<>();
+    private static final Map<Class<?>, Constructor<? extends Dsu>> constructorCache = new HashMap<>();
 
-    public static VarianteBase executarKruskalDeVarianteParaGrafo(Class<? extends VarianteBase> clazz, Grafo grafo) {
-        VarianteBase variante;
+    public static Dsu executarKruskalDeVarianteParaGrafo(Class<? extends Dsu> clazz, Grafo grafo) {
+        Dsu variante;
         var construtorClazz = getConstructor(clazz);
         try {
             variante = construtorClazz.newInstance(grafo.getNumVertices());
@@ -31,11 +31,11 @@ public class Kruskal {
     }
 
     @SuppressWarnings("unchecked")
-    private static Constructor<? extends VarianteBase> getConstructor(Class<? extends VarianteBase> clazz) {
+    private static Constructor<? extends Dsu> getConstructor(Class<? extends Dsu> clazz) {
         return constructorCache.computeIfAbsent(clazz, c -> {
             try {
-                Constructor<? extends VarianteBase> constructor =
-                        (Constructor<? extends VarianteBase>) c.getDeclaredConstructor(int.class);
+                Constructor<? extends Dsu> constructor =
+                        (Constructor<? extends Dsu>) c.getDeclaredConstructor(int.class);
                 constructor.setAccessible(true);
                 return constructor;
             } catch (NoSuchMethodException e) {

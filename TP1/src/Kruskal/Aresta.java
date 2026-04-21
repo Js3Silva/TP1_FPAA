@@ -1,4 +1,4 @@
-package Kruskal;
+package kruskal;
 
 public class Aresta implements Comparable<Aresta> {
     public int origem, destino, peso;
