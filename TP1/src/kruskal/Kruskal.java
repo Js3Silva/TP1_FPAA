@@ -12,14 +12,14 @@ import java.lang.reflect.Constructor;
 public class Kruskal {
     private static final Map<Class<?>, Constructor<? extends Dsu>> constructorCache = new HashMap<>();
 
-    public static void executarKruskalDeVarianteParaGrafo(Class<? extends Dsu> clazz, Grafo grafo) {
+    public static Dsu executarKruskalDeVarianteParaGrafo(Class<? extends Dsu> clazz, Grafo grafo) {
         Dsu variante;
         var construtorClazz = getConstructor(clazz);
         try {
             variante = construtorClazz.newInstance(grafo.getNumVertices());
         } catch (Exception e) {
             System.out.println("Incapaz de instanciar variante de DSU do tipo:" + clazz.getName());
-            return;
+            return null;
         }
 
         int mstAlvo = grafo.getNumVertices() - 1;
@@ -33,6 +33,7 @@ public class Kruskal {
                 mstCount++;
             }
         }
+        return variante;
     }
 
     private static List<Aresta> ordenaArestasPorPeso(List<Aresta> arestas) {
