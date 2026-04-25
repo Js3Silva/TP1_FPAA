@@ -40,11 +40,11 @@ Foram desenvolvidas três versões da estrutura Union-Find, com diferentes níve
    ```
    
 2. Compile o projeto:
-```Bash
-javac src/**/*.java
-```
+   ```bash
+   javac src/**/*.java
+   ```
 
 3. Execute os testes de desempenho:
-```Bash
-java src/Main.java
-```
+   ```bash
+   java src/Main.java
+   ```
