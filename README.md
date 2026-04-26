@@ -48,3 +48,17 @@ Foram desenvolvidas três versões da estrutura Union-Find, com diferentes níve
    ```bash
    java src/Main.java
    ```
+
+## Resultados e Análise
+Os testes experimentais foram realizados em grafos de diferentes densidades. Conforme discutido no artigo técnico (disponível na pasta /docs), os resultados demonstram que, embora as variantes UnionByRank e FullTarjan apresentem tempos próximos em instâncias médias, ambas superam drasticamente a versão Naive em grafos de larga escala.
+
+## Integrantes
+Jonathan Sena da Silva
+Ítalo Vitorino Batista Silva
+Matheus Ferreira Titton
+Pedro Luiz Nato Silva
+
+## 🎓 Instituição
+Disciplina: Fundamentos de Projeto e Análise de Algoritmos
+Professor: João Pedro O. Batisteli
+Curso: Engenharia de Software - PUC Minas
