@@ -2,11 +2,7 @@ package kruskal;
 
 import dsu.Dsu;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.lang.reflect.Constructor;
 
 public class Kruskal {
@@ -25,7 +21,9 @@ public class Kruskal {
         int mstAlvo = grafo.getNumVertices() - 1;
         int mstCount = 0;
 
-        var arestas = ordenaArestasPorPeso(grafo.getArestas());
+        Collections.sort(grafo.getArestas());
+        var arestas = grafo.getArestas();
+
         for (Aresta aresta : arestas) {
             if (mstCount == mstAlvo) break;
             if (variante.find(aresta.origem) != variante.find(aresta.destino)) {
@@ -34,12 +32,6 @@ public class Kruskal {
             }
         }
         return variante;
-    }
-
-    private static List<Aresta> ordenaArestasPorPeso(List<Aresta> arestas) {
-        List<Aresta> sorted = new ArrayList<>(arestas);
-        sorted.sort(Comparator.comparingInt(a -> a.peso));
-        return sorted;
     }
 
     @SuppressWarnings("unchecked")
